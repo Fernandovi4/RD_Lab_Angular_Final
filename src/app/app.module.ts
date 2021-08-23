@@ -17,6 +17,8 @@ import { GameCardComponent } from './components/game-card/game-card.component';
 import { LibraryCardComponent } from './components/library-card/library-card.component';
 import { FriendCardComponent } from './components/friend-card/friend-card.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,7 @@ import { FriendCardComponent } from './components/friend-card/friend-card.compon
     GameCardComponent,
     LibraryCardComponent,
     FriendCardComponent,
+    LibraryCardComponent
   ],
     imports: [
         BrowserModule,
