@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./app/components/friends/friends.component.css";
+@import "./app/components/game-card/game-card.component.css";
+@import "./app/components/games/games.component.css";
+@import "./app/components/header/header-component.css";
+@import "./app/components/home/home.component.css";
+@import "./app/components/library/library.component.css";
+@import "./app/components/library-card/library-card.component.css";
+@import "./app/components/login/log-in-component.css";
+@import "./app/components/profile/profile.component.css";
+@import "./app/components/profile-form/profile-form.component.css";
+body{
+  margin: 0;
+  background-color: #3f51b542;
+}

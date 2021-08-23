@@ -1,0 +1,64 @@
+<!--<app-header-component></app-header-component>-->
+<section class="games">
+  <h1 class="games__title">Games</h1>
+  <hr>
+  <div id='search-box' class="search-box">
+    <form action='' class='search-form' method='get' target='_top'>
+      <input class='search-text' name='q' placeholder='Search' type='text'
+             [(ngModel)]="searchedGameName"
+             (keyup)="searchGameByName()"
+      />
+      <button class='search-button' type='button' (click)="searchGameByName()">
+        <span>Search</span>
+      </button>
+    </form>
+  </div>
+  <div class="games__inner">
+    <div class="games__card-conteiner">
+        <app-game-card
+          [name]="game.name"
+          [price]="game.price"
+          [description]="game.description"
+          *ngFor="let game of games">
+        </app-game-card>
+    </div>
+    <div class="games__filters">
+      <div class="wrapper">
+        <fieldset class="filter-price">
+          <div class="price-field">
+            <input type="range" min="100" max="500" value="500" id="upper">
+          </div>
+          <div class="price-wrap">
+            <span class="price-title">Filter by prise</span>
+            <div class="price-container">
+              <div class="price-wrap-2">
+                <input id="slider-input">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="filter-tag">
+          <div>
+            <input type="checkbox" id="indie" name="indie"
+                   [(ngModel)]="indie"
+                   (change)=" collectCheckedTags()"
+                   ng-click="alert_display()">
+            <label for="indie">Indie</label>
+          </div>
+          <div>
+            <input type="checkbox" id="action" name="action"
+                   [(ngModel)]="action"
+                   (change)=" collectCheckedTags()">
+            <label for="action">Action</label>
+          </div>
+          <div>
+            <input type="checkbox" id="adventure" name="adventure"
+                   [(ngModel)]="adventure"
+                   (change)=" collectCheckedTags()">
+            <label for="adventure">Adventure</label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</section>

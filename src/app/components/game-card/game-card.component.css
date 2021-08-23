@@ -1,0 +1,71 @@
+.game-card{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  /*align-items: center;*/
+  /*padding: 10px;*/
+  /*border: 2px solid midnightblue;*/
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 7px -2px rgba(34, 60, 80, 0.6);
+  -moz-box-shadow: 0 5px 7px -2px rgba(34, 60, 80, 0.6);
+  box-shadow: 0 5px 7px -2px rgba(34, 60, 80, 0.6);
+  width: 250px;
+}
+
+.game-card__hreader{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  background-color: midnightblue;
+  border-radius: 5px 5px 0 0;
+  align-self: stretch;
+  padding: 10px;
+  color: gainsboro;
+}
+
+.game-card__inner{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.game-card__inner:hover{
+  background-color: gainsboro;
+}
+
+.game-card__title{
+  align-self: flex-start;
+  margin: 0 0 30px 0;
+
+}
+
+.game-card__price{
+  align-self: flex-end;
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.game-card__desctiption{
+  width: 80%;
+}
+
+.game-card__button{
+  background-color: midnightblue;
+  color: white;
+  padding: 10px 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 1.5em;
+
+}
+
+.game-card__button:hover{
+  -webkit-box-shadow: 0 5px 7px -2px rgba(34, 60, 80, 0.6);
+  -moz-box-shadow: 0 5px 7px -2px rgba(34, 60, 80, 0.6);
+  box-shadow: 0 5px 7px -2px rgba(34, 60, 80, 0.6);
+}
+
+

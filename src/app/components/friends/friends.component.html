@@ -1,0 +1,26 @@
+<section class="friends">
+  <h1>FRIENDS</h1>
+  <hr>
+  <div id='search-box' class="search-box">
+    <form action='' class='search-form' method='get' target='_top'>
+      <input class='search-text' name='q' placeholder='Search' type='text'
+                   [(ngModel)]="searchedFriendName"
+                   (keyup)="searchFriendByName()"
+            />
+      <button class='search-button' type='button'>
+        <span>Search</span>
+      </button>
+    </form>
+  </div>
+  <h2>My Friends:</h2>
+  <div class="friend-cards-conteiner">
+    <app-friend-card
+      [name]="friend.nickName"
+      *ngFor="let friend of friends">
+      <button class="friend-card__btn remove-friend-btn">Remove Friend</button>
+    </app-friend-card>
+  </div>
+<!--    <app-friend-card>-->
+<!--      <button class="friend-card__btn remove-friend-btn">Remove Friend</button>-->
+<!--    </app-friend-card>-->
+</section>

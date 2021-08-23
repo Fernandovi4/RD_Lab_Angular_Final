@@ -1,0 +1,19 @@
+<div class="profile" >
+    <div class="profile-wrapper">
+      <form [formGroup]="profileForm"  class="profile-form"  (ngSubmit)="submit()">
+        <h1 class="profile-form__title">Profile</h1>
+        <div class="profile-form__container">
+          <hr/>
+          <div class="container">
+            <label class="profile-form__label"><strong>Username</strong></label>
+            <input class="profile-form__input" type="text" placeholder="Enter Username" name="userName" formControlName="userName" >
+            <label class="profile-form__label"><strong>Email</strong></label>
+            <input class="profile-form__input" type="email" placeholder="Enter Email" name="email" formControlName="userEmail" >
+            <label class="profile-form__label"><strong>Age</strong></label>
+            <input class="profile-form__input" type="number" placeholder="Enter Age" name="age"  formControlName="userAge" value="userAge">
+          </div>
+          <button class="profile-form__button" type="submit">Save</button>
+        </div>
+      </form>
+  </div>
+</div>
