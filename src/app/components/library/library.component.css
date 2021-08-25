@@ -8,3 +8,10 @@
   min-height: 80vh;
   padding: 20px;
 }
+
+.cards-wrapper{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  column-gap: 10px;
+}

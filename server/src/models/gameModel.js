@@ -5,7 +5,7 @@ const Game = mongoose.model('Game', {
     type: mongoose.Schema.Types.ObjectId,
     require: true,
   },
-  isMygame: {
+  isInLibrary: {
     type: Boolean,
     default: false,
   },

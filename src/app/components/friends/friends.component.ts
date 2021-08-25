@@ -24,7 +24,7 @@ export class FriendsComponent implements OnInit {
       .subscribe(friends => {
         this.friends = friends
       });
-    console.table(this.friends)
+    // console.table(this.friends)
   }
 
   searchFriendByName() :void {

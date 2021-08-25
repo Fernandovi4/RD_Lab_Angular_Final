@@ -69,7 +69,8 @@
   flex-flow: row wrap;
   justify-content: space-evenly;;
   align-items: center;
-  row-gap: 15px;
+  column-gap: 10px;
+  row-gap: 10px;
   padding-right: 10px;
 }
 

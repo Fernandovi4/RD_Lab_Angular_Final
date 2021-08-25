@@ -1,6 +1,6 @@
 <!--<app-header-component></app-header-component>-->
 <section class="games">
-  <h1 class="games__title">Games</h1>
+  <h1 class="games__title">Games (total quantity : {{gamesQuantity}})</h1>
   <hr>
   <div id='search-box' class="search-box">
     <form action='' class='search-form' method='get' target='_top'>
@@ -19,7 +19,8 @@
           [name]="game.name"
           [price]="game.price"
           [description]="game.description"
-          *ngFor="let game of games">
+          [game]="game"
+          *ngFor="let game of games, index as i">
         </app-game-card>
     </div>
     <div class="games__filters">

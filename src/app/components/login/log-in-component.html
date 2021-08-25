@@ -19,7 +19,8 @@
               Password required!!!
             </div>
           </div>
-          <button class="login-btn" type="submit" [disabled]="loginForm.invalid">Sing In</button>
+          <button class="login-btn" type="submit" [disabled]="loginForm.invalid" (click)="logIn(true)">Sing In</button>
+          <button class="register-btn" type="button"  [disabled]="isLoggedIn" (click)="registrateUser()">Registration</button>
         </div>
       </form>
     </div>

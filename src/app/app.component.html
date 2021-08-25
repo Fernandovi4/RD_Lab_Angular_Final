@@ -1,2 +1,3 @@
-<app-header-component></app-header-component>
-<router-outlet></router-outlet>
+<app-log-in-component *ngIf="!isLoggedIn" (buttonClick)="onChange($event)"></app-log-in-component>
+<app-header-component *ngIf="isLoggedIn"></app-header-component>
+<router-outlet *ngIf="isLoggedIn"></router-outlet>

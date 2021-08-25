@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FinalProject';
+
+  public isLoggedIn: Boolean = false;
+
+  public onChange(logged: boolean): void {
+    if (logged) {
+      this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
+    }
+  }
 }

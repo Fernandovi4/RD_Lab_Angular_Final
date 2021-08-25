@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Game} from '../../services/games.service'
 import {GamesService} from "../../services/games.service";
+// import { HttpClient} from '@angular/common/http';
+import {User} from "../../user";
+import {HttpService} from "../../services/http.service";
 
 
 @Component({
@@ -12,6 +15,8 @@ import {GamesService} from "../../services/games.service";
 export class GamesComponent implements OnInit {
 
   games: Game[] = [];
+  gamesQuantity: number = 0
+  user: User | undefined;
   searchedGameName: string = ''
   indie: boolean = false
   action: boolean = false
@@ -19,17 +24,22 @@ export class GamesComponent implements OnInit {
 
   checkedTags: string[] = []
 
-  constructor( private GamesService: GamesService) { }
+  constructor(
+    private GamesService: GamesService,
+    private httpService: HttpService
+  ) { }
 
   ngOnInit() {
-    this.getGames();
+    this.getGamesList()
   }
 
-  getGames(): void {
-    this.GamesService.getGames()
-      .subscribe(games => {
-        this.games = games
-      });
+  getGamesList():void {
+    this.httpService.getGamesList()
+      .subscribe(data => {
+        // @ts-ignore
+        this.games = data['games']
+        this.gamesQuantity = this.games.length
+      })
   }
 
   searchGameByName() :void {
@@ -47,25 +57,25 @@ export class GamesComponent implements OnInit {
     if(this.indie && !this.checkedTags.some(e => e === 'indie')){
       this.checkedTags.push('indie')
     } else if(!this.indie){
-      this.removeUnckackedTag('indie')
+      this.removeUnckeckedTag('indie')
     }
 
     if(this.action && !this.checkedTags.some(e => e === 'action')){
       this.checkedTags.push('action')
     } else if( !this.indie){
-      this.removeUnckackedTag('action')
+      this.removeUnckeckedTag('action')
     }
 
     if(this.adventure && !this.checkedTags.some(e => e === 'adventure')){
       this.checkedTags.push('adventure')
     } else if( !this.indie){
-      this.removeUnckackedTag('adventure')
+      this.removeUnckeckedTag('adventure')
     }
     console.table(this.checkedTags)
     this.getFiltratedGames()
   }
 
-  removeUnckackedTag(tag: string){
+  removeUnckeckedTag(tag: string){
     const index = this.checkedTags.indexOf(tag);
     if (index !== -1) {
       console.log(this.checkedTags)
@@ -99,18 +109,5 @@ export class GamesComponent implements OnInit {
   deleteNotUnicGame(filtraterGames: Game[]){
     return [...new Map(filtraterGames.map(item => [item.id, item])).values()]
   }
-//     isGameUnical(game: Game):void  {
-//     let result
-//     console.log(this.games)
-//     this.games.forEach(el => {
-//     if (el.id === game.id){
-//       result = true;
-//     }
-//   })
-//     return result
-// }
-
-
-
 
 }

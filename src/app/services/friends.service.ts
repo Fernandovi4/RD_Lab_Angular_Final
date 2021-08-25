@@ -27,9 +27,9 @@ export class FriendsService {
 
   public searchFriendByName(): Observable<ObservedValueOf<Friend[]>>{
     const friends = from(FRIENDSLIST)
-    friends.pipe(
-      map(() => 'peter')
-    )
+    // friends.pipe(
+    //   map(() => 'peter')
+    // )
     return friends
   }
 

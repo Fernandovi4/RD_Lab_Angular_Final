@@ -49,13 +49,17 @@
   width: 200px;
 }
 
-.login-btn{
+.login-btn,
+.register-btn{
   border-radius: 5px;
   padding: 5px 10px;
   width: 200px;
   background-color: midnightblue;
   color: white;
+  margin-bottom: 5px;
 }
+
+
 
 .alert{
   color: red;

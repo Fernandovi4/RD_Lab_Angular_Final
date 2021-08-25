@@ -22,9 +22,9 @@ export class GamesService {
 
   constructor() {}
 
-  public getGames(): Observable<Game[]> {
-    return of(GAMELIST)
-  }
+  // public getGames(): Observable<Game[]> {
+  //   return of(GAMELIST)
+  // }
 
   public getFiltratedGames(): Observable<ObservedValueOf<Game[]>>{
     const games = from(GAMELIST)

@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {HttpService} from "../../services/http.service";
 
 
 @Component({
@@ -8,19 +9,27 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class GameCardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private httpService: HttpService
+  ) { }
 
   @Input() name: string = "";
   @Input() price: number = 0;
   @Input() description: string = '';
+  @Input() game: object| undefined;
+
 
   ngOnInit(): void {
 
   }
 
-
   public saveToLibrary () {
-    console.log('saveToLibrary')
+
+    // @ts-ignore
+    this.httpService.saveToLibrary(this.game._id)
+      // .subscribe(data => {
+      //
+      // })
   }
 
 }
