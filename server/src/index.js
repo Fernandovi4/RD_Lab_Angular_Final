@@ -14,11 +14,12 @@ app.set('port', process.env.PORT || 8080);
 require('dotenv').config();
 
 const {authRout} = require('./controllers/authController');
-const {friendsRout} = require('./controllers/userController');
+const {friendsRout} = require('./controllers/friendController');
 const {gamesRout} = require('./controllers/gamesController');
 const {libraryRout} = require('./controllers/libraryController');
 
-const {authMiddleware} = require('./middlewares/authMiddleware');
+
+// const {authMiddleware} = require('./middlewares/authMiddleware');
 
 const {AppCustomError} = require('./utils/errorsUtil');
 const {asyncAwaitWrapper} = require('./utils/asyncAwaitWrapper');
@@ -50,11 +51,12 @@ app.use('/api/library', libraryRout);
 app.use('/api/friends', friendsRout);
 
 
-app.use((req, res, next) => {
+
+app.use((req, res) => {
   res.status(404).json({message: 'Not found'});
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   if (err instanceof AppCustomError) {
     return res.status(err.status).json({message: err.message});
   }
@@ -73,4 +75,4 @@ const startServer = async () => {
     console.log(`Error on server startup: ${err.message}`);
   }
 };
-startServer();
+startServer().then();

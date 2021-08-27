@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import {HttpService} from '../../services/http.service'
 
 @Component({
@@ -35,6 +35,7 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   submit(){
@@ -54,13 +55,13 @@ export class LogInComponent implements OnInit {
     this.buttonClick.emit(change);
   }
 
-  public registrateUser(): void {
-    console.log('from registrateUser')
-    this.httpService.registration(
-      'http://localhost:8080/api/auth/register',{
-        'email': this.loginForm.get('userEmail')?.value,
-        'password': this.loginForm.get('userPassword')?.value
-      })
-  }
+  // public registrateUser(): void {
+  //   console.log('from registrateUser')
+  //   this.httpService.registration(
+  //     'http://localhost:8080/api/auth/register',{
+  //       'email': this.loginForm.get('userEmail')?.value,
+  //       'password': this.loginForm.get('userPassword')?.value
+  //     })
+  // }
 
 }

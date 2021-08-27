@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import {from, Observable, ObservedValueOf, of} from 'rxjs';
-import { delay, distinctUntilChanged, finalize, map, pluck, tap } from 'rxjs/operators';
-// import { Store } from './store';
-import {GAMELIST} from '../utils/games-list'
+import {from, Observable, ObservedValueOf} from 'rxjs';
+// import { delay, distinctUntilChanged, finalize, map, pluck, tap } from 'rxjs/operators';
 
 export interface Game {
   id: number;
@@ -17,29 +15,33 @@ export interface Game {
   providedIn: 'root'
 })
 
-// export class GamesService extends Store<Game>{
+
 export class GamesService {
 
   constructor() {}
 
-  // public getGames(): Observable<Game[]> {
-  //   return of(GAMELIST)
-  // }
 
-  public getFiltratedGames(): Observable<ObservedValueOf<Game[]>>{
-    const games = from(GAMELIST)
-    games.pipe(
-        map((el) => 'Hello'
-      ));
+
+  public getFiltratedGames(allGames: Game[]): Observable<ObservedValueOf<Game[]>>{
+    const games = from(allGames)
+    // games.pipe(
+    //     map((el) => 'Hello'
+    //   ));
     return games
   }
 
-  public searchGameByName(): Observable<ObservedValueOf<Game[]>>{
-    const games = from(GAMELIST)
-    games.pipe(
-      map(() => 'peter')
-    )
-    return games
+  public searchGameByName(searchedName: string, games: Game[]): Game[]{
+
+    const searchedGames:Game[]  = []
+
+    from(games)
+      .subscribe(game => {
+        if(game.name.includes(searchedName)){
+          searchedGames.push(game)
+        }
+      })
+
+    return searchedGames
   }
 
 

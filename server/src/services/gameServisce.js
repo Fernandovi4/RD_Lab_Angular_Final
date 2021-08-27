@@ -10,13 +10,11 @@ const getGames = async () => {
 
 const getLibraryGames = async () => {
 
-  const libraryGames = await Game.find({'isInLibrary': true})
-
-  return libraryGames
+  return await Game.find({'isInLibrary': true})
 }
 
 const addGameToLibrary = async (gameId) => {
-
+  console.log(gameId)
   const game = await Game.findByIdAndUpdate(
     gameId, { 'isInLibrary': true });
 

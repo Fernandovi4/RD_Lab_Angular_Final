@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpService} from "../../services/http.service";
 
 
@@ -17,6 +17,7 @@ export class GameCardComponent implements OnInit {
   @Input() price: number = 0;
   @Input() description: string = '';
   @Input() game: object| undefined;
+  @Output() lookForAddindToLibrary = new EventEmitter<string>()
 
 
   ngOnInit(): void {
@@ -27,9 +28,10 @@ export class GameCardComponent implements OnInit {
 
     // @ts-ignore
     this.httpService.saveToLibrary(this.game._id)
-      // .subscribe(data => {
-      //
-      // })
+      .subscribe(() => {
+        console.log('saved to library succesgully')
+      })
+    this.lookForAddindToLibrary.emit()
   }
 
 }

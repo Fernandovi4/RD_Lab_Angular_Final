@@ -22,16 +22,10 @@ export class LibraryComponent implements OnInit {
   }
 
   getLibraryGamesList():void {
-    // @ts-ignore
     this.httpService.getLibraryGamesList()
       .subscribe(data => {
-
-        console.log(data)
         // @ts-ignore
         this.libraryGames = data['myGames']
-        // this.gamesQuantity = this.games.length
-        // console.table(this.games)
       })
   }
-
 }

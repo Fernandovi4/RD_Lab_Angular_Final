@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Friend} from "../../services/friends.service";
 import {FriendsService} from '../../services/friends.service'
+import {HttpService} from "../../services/http.service";
 
 
 @Component({
@@ -11,20 +12,25 @@ import {FriendsService} from '../../services/friends.service'
 export class FriendsComponent implements OnInit {
 
   friends: Friend[] = [];
+  friend: Friend|undefined
+  clickedFriendId: string = ''
   searchedFriendName: string = ''
 
-  constructor( private FriendsService: FriendsService) { }
+  constructor(
+    private FriendsService: FriendsService,
+    private httpService: HttpService
+  ) {}
 
   ngOnInit() {
-    this.getFriends();
+    this.getFriendsList();
   }
 
-  getFriends(): void {
-    this.FriendsService.getFriends()
-      .subscribe(friends => {
-        this.friends = friends
-      });
-    // console.table(this.friends)
+  getFriendsList():void{
+    this.httpService.getFriendsList()
+      .subscribe(data => {
+        // @ts-ignore
+        this.friends = data['friends']
+      })
   }
 
   searchFriendByName() :void {
@@ -34,6 +40,18 @@ export class FriendsComponent implements OnInit {
         if(friend.nickName.toLowerCase().includes(this.searchedFriendName.toLowerCase())){
           this.friends.push(friend)
         }
+      })
+  }
+
+  catchClickOnCard(userId: string):void{
+    this.clickedFriendId = userId
+  }
+
+  removeUserFromFriends():void{
+    this.httpService.removeUserFromFriendsById(this.clickedFriendId)
+      .subscribe(() => {
+        console.log('user was removed from friends')
+        this.ngOnInit()
       })
   }
 

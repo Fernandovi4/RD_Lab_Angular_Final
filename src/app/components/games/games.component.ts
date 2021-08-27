@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Game} from '../../services/games.service'
 import {GamesService} from "../../services/games.service";
-// import { HttpClient} from '@angular/common/http';
-import {User} from "../../user";
 import {HttpService} from "../../services/http.service";
 
 
@@ -15,8 +13,6 @@ import {HttpService} from "../../services/http.service";
 export class GamesComponent implements OnInit {
 
   games: Game[] = [];
-  gamesQuantity: number = 0
-  user: User | undefined;
   searchedGameName: string = ''
   indie: boolean = false
   action: boolean = false
@@ -34,22 +30,20 @@ export class GamesComponent implements OnInit {
   }
 
   getGamesList():void {
+
     this.httpService.getGamesList()
       .subscribe(data => {
         // @ts-ignore
         this.games = data['games']
-        this.gamesQuantity = this.games.length
       })
   }
 
   searchGameByName() :void {
-    this.games = []
-    this.GamesService.searchGameByName()
-      .subscribe(game => {
-        if(game.name.includes(this.searchedGameName)){
-          this.games.push(game)
-        }
-      })
+    this.games = this.GamesService.searchGameByName(this.searchedGameName, this.games)
+  }
+
+  updateGamePage():void{
+    this.ngOnInit()
   }
 
   collectCheckedTags(): void{
@@ -88,7 +82,7 @@ export class GamesComponent implements OnInit {
     // debugger
     const filtraterGames:Game[] = []
     this.games = []
-    this.GamesService.getFiltratedGames()
+    this.GamesService.getFiltratedGames(this.games)
       .subscribe(game => {
 
         for (let i = 0; i < game.tag.length; i++){

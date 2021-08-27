@@ -22,9 +22,9 @@ router.get('/', asyncAwaitWrapper(async (req, res) => {
 
 
 router.patch('/:id', asyncAwaitWrapper( async (req, res) => {
-
+  console.log('het')
   const gameId = req.params.id;
-
+  console.log(gameId)
   await addGameToLibrary(gameId);
 
   res.json({'message': 'game added to library successfully'});
