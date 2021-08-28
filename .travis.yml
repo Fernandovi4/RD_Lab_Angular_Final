@@ -3,11 +3,9 @@ language: node_js
 
 node_js:
   - '14'
-addons:
-  chrome: stable
+
 before_install:
   - npm install -g @angular/cli
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:9876/
 install: npm install
 
 branches:
