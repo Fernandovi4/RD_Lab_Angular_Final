@@ -10,7 +10,7 @@ mongoose.set('useFindAndModify', false);
 
 mongoose.set('useCreateIndex', true);
 const mongoURL = 'mongodb+srv://new-user-1983:pgjbcpgjbc@cluster0.7tfau.mongodb.net/AngularFinalProject?retryWrites=true&w=majority';
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 9000);
 require('dotenv').config();
 
 const {authRout} = require('./controllers/authController');
