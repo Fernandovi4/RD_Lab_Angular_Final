@@ -1,5 +1,12 @@
 <section class="library">
   <h1>Library</h1>
   <hr>
-  <app-library-card></app-library-card>
+  <div class="cards-wrapper">
+    <app-library-card
+      [name]="game.name"
+      [description]="game.description"
+      [game]="game"
+      *ngFor="let game of libraryGames, index as i"></app-library-card>
+  </div>
+
 </section>

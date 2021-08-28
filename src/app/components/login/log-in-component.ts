@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
+import {HttpService} from '../../services/http.service'
 
 @Component({
   selector: 'app-log-in-component',
@@ -8,6 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./log-in-component.css']
 })
 export class LogInComponent implements OnInit {
+
+  @Output() buttonClick = new EventEmitter<boolean>();
+
   loginForm: FormGroup;
   submitted = false;
   loading = false;
@@ -15,13 +19,15 @@ export class LogInComponent implements OnInit {
   // returnUrl: string;
 
 
-  constructor() {
+  constructor(
+    private httpService: HttpService
+  ) {
     this.loginForm = new FormGroup({
-      "userEmail": new FormControl("test@mail.com", [
+      userEmail: new FormControl("test@mail.com", [
         Validators.required,
         Validators.email
       ]),
-      "userPassword": new FormControl("", [
+      userPassword: new FormControl("123", [
         Validators.required,
         Validators.pattern('(^[0-9]*$)')
       ])
@@ -29,11 +35,12 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   submit(){
     this.submitted = true;
-    this.isLoggedIn = true
+    // this.isLoggedIn = true
 
     if (this.loginForm.invalid) {
       return;
@@ -43,5 +50,18 @@ export class LogInComponent implements OnInit {
 
     // this.router.navigate([this.returnUrl])
   }
+
+  public logIn(change: boolean): void {
+    this.buttonClick.emit(change);
+  }
+
+  // public registrateUser(): void {
+  //   console.log('from registrateUser')
+  //   this.httpService.registration(
+  //     'http://localhost:8080/api/auth/register',{
+  //       'email': this.loginForm.get('userEmail')?.value,
+  //       'password': this.loginForm.get('userPassword')?.value
+  //     })
+  // }
 
 }

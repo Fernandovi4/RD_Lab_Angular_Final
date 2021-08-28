@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LibraryComponent } from './library.component';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -8,7 +9,8 @@ describe('LibraryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LibraryComponent ]
+      declarations: [ LibraryComponent ],
+      imports: [HttpClientModule]
     })
     .compileComponents();
   });

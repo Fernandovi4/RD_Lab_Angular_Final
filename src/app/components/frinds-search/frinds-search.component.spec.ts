@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfileFormComponent } from './profile-form.component';
+import { FriendsSearchComponent } from './frinds-search.component';
 import {HttpClientModule} from "@angular/common/http";
 
-describe('ProfileFormComponent', () => {
-  let component: ProfileFormComponent;
-  let fixture: ComponentFixture<ProfileFormComponent>;
+describe('FrindsSearchComponent', () => {
+  let component: FriendsSearchComponent;
+  let fixture: ComponentFixture<FriendsSearchComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileFormComponent ],
+      declarations: [ FriendsSearchComponent ],
       imports: [HttpClientModule]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileFormComponent);
+    fixture = TestBed.createComponent(FriendsSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

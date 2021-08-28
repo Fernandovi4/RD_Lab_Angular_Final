@@ -14,10 +14,12 @@ app.set('port', process.env.PORT || 8080);
 require('dotenv').config();
 
 const {authRout} = require('./controllers/authController');
-const {friendsRout} = require('./controllers/userController');
+const {friendsRout} = require('./controllers/friendController');
 const {gamesRout} = require('./controllers/gamesController');
+const {libraryRout} = require('./controllers/libraryController');
 
-const {authMiddleware} = require('./middlewares/authMiddleware');
+
+// const {authMiddleware} = require('./middlewares/authMiddleware');
 
 const {AppCustomError} = require('./utils/errorsUtil');
 const {asyncAwaitWrapper} = require('./utils/asyncAwaitWrapper');
@@ -29,22 +31,32 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.static('assets'));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
+  next();
+});
+
 app.get('/', asyncAwaitWrapper( async (req, res) => {
-  res.sendFile('node_js_hw_3/index.html', {'root': '../'});
+  res.sendFile('final_project/index.html', {'root': '../'});
 }));
+
 
 app.use('/api/auth', authRout);
 
-app.use(authMiddleware);
+// app.use(authMiddleware);
 app.use('/api/games', gamesRout);
+app.use('/api/library', libraryRout);
 app.use('/api/friends', friendsRout);
 
 
-app.use((req, res, next) => {
+
+app.use((req, res) => {
   res.status(404).json({message: 'Not found'});
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   if (err instanceof AppCustomError) {
     return res.status(err.status).json({message: err.message});
   }
@@ -63,4 +75,4 @@ const startServer = async () => {
     console.log(`Error on server startup: ${err.message}`);
   }
 };
-startServer();
+startServer().then();

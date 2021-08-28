@@ -1,27 +1,30 @@
 <section class="friends">
   <h1>FRIENDS</h1>
-  <a routerLink="friends-search" class="nav__link" routerLinkActive="active">Find new friends</a>
   <hr>
   <div id='search-box' class="search-box">
     <form action='' class='search-form' method='get' target='_top'>
       <input class='search-text' name='q' placeholder='Search' type='text'
-                   [(ngModel)]="searchedFriendName"
-                   (keyup)="searchFriendByName()"/>
+             [(ngModel)]="searchedUserName"
+             (keyup)="searchUserByName()"
+      />
       <button class='search-button' type='button'>
         <span>Search</span>
       </button>
     </form>
   </div>
-  <h2>My Friends:</h2>
+  <h2>Search Friends:<span></span></h2>
   <div class="friend-cards-conteiner">
     <app-friend-card
-      [friend]="friend"
-      [name]="friend.nickName"
-      *ngFor="let friend of friends, index as i"
+      [friend]="user"
+      [name]="user.nickName"
+      *ngFor="let user of users, index as i"
       (getFriendId)="catchClickOnCard($event)"
-      (click)="removeUserFromFriends()">
-      <button class="friend-card__btn remove-friend-btn">
-        Remove Friend
+      (click)="addUserToFriends()"
+    >
+      <button
+        class="friend-card__btn add-friend-btn"
+      >
+        Add Friend
       </button>
     </app-friend-card>
   </div>

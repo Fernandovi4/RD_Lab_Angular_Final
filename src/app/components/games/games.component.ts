@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Game} from '../../services/games.service'
 import {GamesService} from "../../services/games.service";
-
+import {HttpService} from "../../services/http.service";
+import {FiltrationService} from "../../services/filtration.service";
+// import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-games',
@@ -9,108 +11,55 @@ import {GamesService} from "../../services/games.service";
   styleUrls: ['./games.component.css']
 })
 
-export class GamesComponent implements OnInit {
+export class GamesComponent implements OnInit, DoCheck {
 
   games: Game[] = [];
+  gamesToRender: Game[] =[]
   searchedGameName: string = ''
-  indie: boolean = false
-  action: boolean = false
-  adventure: boolean = false
+  indieTag: boolean = false
+  actionTag: boolean = false
+  adventureTag: boolean = false
 
-  checkedTags: string[] = []
+  // checkedTags: string[] = []
 
-  constructor( private GamesService: GamesService) { }
+  constructor(
+    private GamesService: GamesService,
+    private httpService: HttpService,
+    private FiltrationService: FiltrationService
+  ) { }
 
   ngOnInit() {
-    this.getGames();
+    this.getGamesList()
   }
 
-  getGames(): void {
-    this.GamesService.getGames()
-      .subscribe(games => {
-        this.games = games
-      });
+  ngDoCheck():void {
   }
 
-  searchGameByName() :void {
-    this.games = []
-    this.GamesService.searchGameByName()
-      .subscribe(game => {
-        if(game.name.includes(this.searchedGameName)){
-          this.games.push(game)
-        }
+  getGamesList():void {
+    this.httpService.getGamesList()
+      .subscribe(data => {
+        // @ts-ignore
+        this.games = data['games']
       })
   }
 
-  collectCheckedTags(): void{
-
-    if(this.indie && !this.checkedTags.some(e => e === 'indie')){
-      this.checkedTags.push('indie')
-    } else if(!this.indie){
-      this.removeUnckackedTag('indie')
-    }
-
-    if(this.action && !this.checkedTags.some(e => e === 'action')){
-      this.checkedTags.push('action')
-    } else if( !this.indie){
-      this.removeUnckackedTag('action')
-    }
-
-    if(this.adventure && !this.checkedTags.some(e => e === 'adventure')){
-      this.checkedTags.push('adventure')
-    } else if( !this.indie){
-      this.removeUnckackedTag('adventure')
-    }
-    console.table(this.checkedTags)
-    this.getFiltratedGames()
+  searchGameByName() :void {
+    this.games = this.GamesService.searchGameByName(this.searchedGameName, this.games)
   }
 
-  removeUnckackedTag(tag: string){
-    const index = this.checkedTags.indexOf(tag);
-    if (index !== -1) {
-      console.log(this.checkedTags)
-      this.checkedTags.splice(index, 1);
-      console.log(this.checkedTags)
-    }
+  filtrateGamesByTag():void {
+    this.gamesToRender = this.FiltrationService.filtrateGamesByTag(
+      this.indieTag,
+      this.actionTag,
+      this.adventureTag,
+      this.games
+  )
+    console.log(this.games)
+    this.ngDoCheck()
   }
 
-  getFiltratedGames(): void {
-    // debugger
-    const filtraterGames:Game[] = []
-    this.games = []
-    this.GamesService.getFiltratedGames()
-      .subscribe(game => {
-
-        for (let i = 0; i < game.tag.length; i++){
-          for( let j = 0; j < this.checkedTags.length; j++){
-            // debugger
-            if((game.tag[i] === this.checkedTags[j])) {
-              filtraterGames.push(game)
-            }
-          }
-        }
-
-      });
-    console.log(filtraterGames.length)
-    this.deleteNotUnicGame(filtraterGames)
-    this.games = filtraterGames
+  updateGamePage():void{
+    this.ngOnInit()
   }
-
-  deleteNotUnicGame(filtraterGames: Game[]){
-    return [...new Map(filtraterGames.map(item => [item.id, item])).values()]
-  }
-//     isGameUnical(game: Game):void  {
-//     let result
-//     console.log(this.games)
-//     this.games.forEach(el => {
-//     if (el.id === game.id){
-//       result = true;
-//     }
-//   })
-//     return result
-// }
-
-
-
 
 }

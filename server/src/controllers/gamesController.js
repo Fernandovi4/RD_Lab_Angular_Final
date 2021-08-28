@@ -5,7 +5,7 @@ require('bcrypt');
 
 const {
   getGames,
-  getLibraryGames
+  addGameToLibrary
 } = require('../services/gameServisce');
 
 const {
@@ -15,15 +15,19 @@ const {
 router.get('/', asyncAwaitWrapper(async (req, res) => {
 
   const games = await getGames();
+
   res.json({'games': games});
 
 }));
 
-router.get('/library', asyncAwaitWrapper(async (req, res) => {
 
-  const libraryGames = await getLibraryGames();
-  res.json({'myGames': libraryGames});
+router.patch('/:id', asyncAwaitWrapper( async (req, res) => {
+  console.log('het')
+  const gameId = req.params.id;
+  console.log(gameId)
+  await addGameToLibrary(gameId);
 
+  res.json({'message': 'game added to library successfully'});
 }));
 
 

@@ -1,12 +1,12 @@
 <!--<app-header-component></app-header-component>-->
 <section class="games">
-  <h1 class="games__title">Games</h1>
+  <h1 class="games__title">Game</h1>
   <hr>
   <div id='search-box' class="search-box">
     <form action='' class='search-form' method='get' target='_top'>
       <input class='search-text' name='q' placeholder='Search' type='text'
              [(ngModel)]="searchedGameName"
-             (keyup)="searchGameByName()"
+             (keydown.enter)="searchGameByName()"
       />
       <button class='search-button' type='button' (click)="searchGameByName()">
         <span>Search</span>
@@ -19,7 +19,10 @@
           [name]="game.name"
           [price]="game.price"
           [description]="game.description"
-          *ngFor="let game of games">
+          [game]="game"
+          *ngFor="let game of games, index as i"
+          (lookForAddindToLibrary)="updateGamePage()"
+        >
         </app-game-card>
     </div>
     <div class="games__filters">
@@ -40,23 +43,25 @@
         <fieldset class="filter-tag">
           <div>
             <input type="checkbox" id="indie" name="indie"
-                   [(ngModel)]="indie"
-                   (change)=" collectCheckedTags()"
-                   ng-click="alert_display()">
+                   [(ngModel)]="indieTag"
+
+                   >
             <label for="indie">Indie</label>
           </div>
           <div>
             <input type="checkbox" id="action" name="action"
-                   [(ngModel)]="action"
-                   (change)=" collectCheckedTags()">
+                   [(ngModel)]="actionTag"
+                   >
             <label for="action">Action</label>
           </div>
           <div>
             <input type="checkbox" id="adventure" name="adventure"
-                   [(ngModel)]="adventure"
-                   (change)=" collectCheckedTags()">
+                   [(ngModel)]="adventureTag"
+                   >
             <label for="adventure">Adventure</label>
           </div>
+          <button class="filter-tag__button"
+          (click) = " filtrateGamesByTag()">Filtrate by tags</button>
         </fieldset>
       </div>
     </div>
