@@ -6,7 +6,7 @@
     <form action='' class='search-form' method='get' target='_top'>
       <input class='search-text' name='q' placeholder='Search' type='text'
              [(ngModel)]="searchedGameName"
-             (keyup)="searchGameByName()"
+             (keydown.enter)="searchGameByName()"
       />
       <button class='search-button' type='button' (click)="searchGameByName()">
         <span>Search</span>
@@ -43,23 +43,25 @@
         <fieldset class="filter-tag">
           <div>
             <input type="checkbox" id="indie" name="indie"
-                   [(ngModel)]="indie"
-                   (change)=" collectCheckedTags()"
-                   ng-click="alert_display()">
+                   [(ngModel)]="indieTag"
+
+                   >
             <label for="indie">Indie</label>
           </div>
           <div>
             <input type="checkbox" id="action" name="action"
-                   [(ngModel)]="action"
-                   (change)=" collectCheckedTags()">
+                   [(ngModel)]="actionTag"
+                   >
             <label for="action">Action</label>
           </div>
           <div>
             <input type="checkbox" id="adventure" name="adventure"
-                   [(ngModel)]="adventure"
-                   (change)=" collectCheckedTags()">
+                   [(ngModel)]="adventureTag"
+                   >
             <label for="adventure">Adventure</label>
           </div>
+          <button class="filter-tag__button"
+          (click) = " filtrateGamesByTag()">Filtrate by tags</button>
         </fieldset>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import {from, Observable, ObservedValueOf} from 'rxjs';
-// import { delay, distinctUntilChanged, finalize, map, pluck, tap } from 'rxjs/operators';
+import {from} from 'rxjs';
 
 export interface Game {
   id: number;
@@ -15,20 +14,9 @@ export interface Game {
   providedIn: 'root'
 })
 
-
 export class GamesService {
 
   constructor() {}
-
-
-
-  public getFiltratedGames(allGames: Game[]): Observable<ObservedValueOf<Game[]>>{
-    const games = from(allGames)
-    // games.pipe(
-    //     map((el) => 'Hello'
-    //   ));
-    return games
-  }
 
   public searchGameByName(searchedName: string, games: Game[]): Game[]{
 
@@ -43,34 +31,4 @@ export class GamesService {
 
     return searchedGames
   }
-
-
-
-
-
-  // constructor() {
-  //   super();
-  //   this.setState({isLoading: true});
-  //   this.fetchGames$()
-  //     .subscribe(games => this.setState({
-  //       entities: this.transformArray(games, 'id'),
-  //       isLoading: false,
-  //     }));
-  // }
-  //
-  // public getGames$(): Observable<Game[]> {
-  //   return this.getState$()
-  //     .pipe(
-  //       pluck('entities'),
-  //       distinctUntilChanged(),
-  //       map((entities) => Object.values(entities))
-  //     )
-  // }
-  //
-  // public isLoading$() {
-  //   return this.getState$()
-  //     .pipe(pluck('isLoading'))
-  // }
-  //
-  // }
 }

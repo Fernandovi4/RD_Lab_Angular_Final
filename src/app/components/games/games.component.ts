@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Game} from '../../services/games.service'
 import {GamesService} from "../../services/games.service";
 import {HttpService} from "../../services/http.service";
-
+import {FiltrationService} from "../../services/filtration.service";
+// import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-games',
@@ -10,27 +11,31 @@ import {HttpService} from "../../services/http.service";
   styleUrls: ['./games.component.css']
 })
 
-export class GamesComponent implements OnInit {
+export class GamesComponent implements OnInit, DoCheck {
 
   games: Game[] = [];
+  gamesToRender: Game[] =[]
   searchedGameName: string = ''
-  indie: boolean = false
-  action: boolean = false
-  adventure: boolean = false
+  indieTag: boolean = false
+  actionTag: boolean = false
+  adventureTag: boolean = false
 
-  checkedTags: string[] = []
+  // checkedTags: string[] = []
 
   constructor(
     private GamesService: GamesService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private FiltrationService: FiltrationService
   ) { }
 
   ngOnInit() {
     this.getGamesList()
   }
 
-  getGamesList():void {
+  ngDoCheck():void {
+  }
 
+  getGamesList():void {
     this.httpService.getGamesList()
       .subscribe(data => {
         // @ts-ignore
@@ -42,66 +47,19 @@ export class GamesComponent implements OnInit {
     this.games = this.GamesService.searchGameByName(this.searchedGameName, this.games)
   }
 
+  filtrateGamesByTag():void {
+    this.gamesToRender = this.FiltrationService.filtrateGamesByTag(
+      this.indieTag,
+      this.actionTag,
+      this.adventureTag,
+      this.games
+  )
+    console.log(this.games)
+    this.ngDoCheck()
+  }
+
   updateGamePage():void{
     this.ngOnInit()
-  }
-
-  collectCheckedTags(): void{
-
-    if(this.indie && !this.checkedTags.some(e => e === 'indie')){
-      this.checkedTags.push('indie')
-    } else if(!this.indie){
-      this.removeUnckeckedTag('indie')
-    }
-
-    if(this.action && !this.checkedTags.some(e => e === 'action')){
-      this.checkedTags.push('action')
-    } else if( !this.indie){
-      this.removeUnckeckedTag('action')
-    }
-
-    if(this.adventure && !this.checkedTags.some(e => e === 'adventure')){
-      this.checkedTags.push('adventure')
-    } else if( !this.indie){
-      this.removeUnckeckedTag('adventure')
-    }
-    console.table(this.checkedTags)
-    this.getFiltratedGames()
-  }
-
-  removeUnckeckedTag(tag: string){
-    const index = this.checkedTags.indexOf(tag);
-    if (index !== -1) {
-      console.log(this.checkedTags)
-      this.checkedTags.splice(index, 1);
-      console.log(this.checkedTags)
-    }
-  }
-
-  getFiltratedGames(): void {
-    // debugger
-    const filtraterGames:Game[] = []
-    this.games = []
-    this.GamesService.getFiltratedGames(this.games)
-      .subscribe(game => {
-
-        for (let i = 0; i < game.tag.length; i++){
-          for( let j = 0; j < this.checkedTags.length; j++){
-            // debugger
-            if((game.tag[i] === this.checkedTags[j])) {
-              filtraterGames.push(game)
-            }
-          }
-        }
-
-      });
-    console.log(filtraterGames.length)
-    this.deleteNotUnicGame(filtraterGames)
-    this.games = filtraterGames
-  }
-
-  deleteNotUnicGame(filtraterGames: Game[]){
-    return [...new Map(filtraterGames.map(item => [item.id, item])).values()]
   }
 
 }
