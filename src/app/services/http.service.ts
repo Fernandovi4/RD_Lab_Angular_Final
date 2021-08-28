@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from "rxjs";
+import {Game} from "./games.service";
+import {Friend} from "./friends.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,47 +18,47 @@ export class HttpService {
 
   getGamesList(){
 
-    return this.http.get('http://localhost:8080/api/games')
+    return this.http.get<Game>('http://localhost:8080/api/games')
   }
 
   getFriendsList(){
-    return this.http.get('http://localhost:8080/api/friends')
+    return this.http.get<Friend>('http://localhost:8080/api/friends')
   }
 
   getUsersList(){
-    return this.http.get('http://localhost:8080/api/friends/search')
+    return this.http.get<Friend>('http://localhost:8080/api/friends/search')
   }
 
   getLibraryGamesList(){
-    return this.http.get('http://localhost:8080/api/library')
+    return this.http.get<Game>('http://localhost:8080/api/library')
   }
 
-  removeUserFromFriendsById<T>(userId:string):Observable<T>{
+  removeUserFromFriendsById<Friend>(userId:string):Observable<Friend>{
 
     let url: string = `http://localhost:8080/api/friends/${userId}`
     let httpParams = new HttpParams()
       .set('id', userId)
-    return this.http.patch<T>(url,{
+    return this.http.patch<Friend>(url,{
       params: httpParams
     })
   }
 
-  addUserToFriendsById<T>(userId:string):Observable<T>{
+  addUserToFriendsById<Friend>(userId:string):Observable<Friend>{
 
     let url: string = `http://localhost:8080/api/friends/search/${userId}`
     let httpParams = new HttpParams()
       .set('id', userId)
-    return this.http.patch<T>(url,{
+    return this.http.patch<Friend>(url,{
       params: httpParams
     })
   }
 
-  public saveToLibrary<T>(gameId: string): Observable<T>{
+  public saveToLibrary<Game>(gameId: string): Observable<Game>{
 
     let url = 'http://localhost:8080/api/games/'
     let httpParams = new HttpParams()
       .set('id', gameId)
-    return this.http.patch<T>( url+gameId,{
+    return this.http.patch<Game>( url+gameId,{
       params: httpParams
     });
   }
