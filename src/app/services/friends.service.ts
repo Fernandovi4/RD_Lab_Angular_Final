@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import {from, Observable, ObservedValueOf, of} from 'rxjs';
-import {FRIENDSLIST} from '../utils/friends-list'
+import {from} from 'rxjs';
 
 export interface Friend {
   id: number;
@@ -16,19 +15,17 @@ export class FriendsService {
 
   constructor() { }
 
+  public searchFriendByName(searchedName: string, friends: Friend[]): Friend[] {
+    const searchedFriends: Friend[] = []
 
-  // public getFriends(): Observable<Friend[]> {
-  //   return of(FRIENDSLIST)
-  // }
-
-  public searchFriendByName(): Observable<ObservedValueOf<Friend[]>>{
-    // const friends = from(FRIENDSLIST)
-    // friends.pipe(
-    //   map(() => 'peter')
-    // )
-    return from(FRIENDSLIST)
+    from(friends)
+      .subscribe(friend => {
+        if (friend.nickName.toLowerCase().includes(searchedName.toLowerCase())) {
+          searchedFriends.push(friend)
+        }
+      })
+    return searchedFriends
   }
-
 }
 
 

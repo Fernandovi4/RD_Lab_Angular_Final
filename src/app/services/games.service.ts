@@ -24,7 +24,7 @@ export class GamesService {
 
     from(games)
       .subscribe(game => {
-        if(game.name.includes(searchedName)){
+        if(game.name.toLowerCase().includes(searchedName.toLowerCase())){
           searchedGames.push(game)
         }
       })
