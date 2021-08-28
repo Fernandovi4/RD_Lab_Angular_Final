@@ -33,13 +33,9 @@ export class FriendsSearchComponent implements OnInit {
   }
 
   searchUserByName() :void {
-    this.users = []
-    this.FriendsService.searchFriendByName()
-      .subscribe(user => {
-        if(user.nickName.toLowerCase().includes(this.searchedUserName.toLowerCase())){
-          this.users.push(user)
-        }
-      })
+    this.users = this.FriendsService.searchFriendByName(this.searchedUserName, this.users)
+
+
   }
 
   catchClickOnCard(userId: string):void{
