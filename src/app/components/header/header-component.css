@@ -13,13 +13,13 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  width: 80vw;
+  width: 85vw;
   margin: 0 auto;
 }
 
 .logo{
   text-decoration: none;
-  font-size: 30px;
+  font-size: 4vmin;
   border: 5px solid white;
   border-radius: 5px;
   padding: 5px;
@@ -42,18 +42,19 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  padding: 0;
 }
 
 .nav__item{
   list-style: none;
-  margin-left: 50px;
+  margin-left: 3vw;
 }
 
 .nav__link{
   text-decoration: none;
   color: midnightblue;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 4vmin;;
   cursor: pointer;
 }
 
@@ -67,4 +68,9 @@
 
 .nav__link--clicked{
   color: cadetblue;
+}
+
+.highlited{
+  color: white;
+  font-weight: bold;
 }

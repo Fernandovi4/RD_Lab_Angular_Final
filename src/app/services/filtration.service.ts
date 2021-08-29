@@ -8,17 +8,22 @@ import {Game} from "./games.service";
 export class FiltrationService {
 
   checkedTags: string[] = []
-  filtratedByTagGames: Game[]=[]
+
 
   constructor() { }
 
-  public filtrateGamesByTag(indieTag:boolean, actionTag: boolean,adventureTag: boolean, games: Game[]):Game[]{
-    this.collectCheckedTags(indieTag, actionTag,adventureTag ,games)
-    return this.filtratedByTagGames
+
+  public filtrateGamesByPrice( price: number, games: Game[]){
+    return games.filter(game => game.price <= price)
   }
 
-  collectCheckedTags(indieTag:boolean, actionTag: boolean,adventureTag: boolean, games: Game[]): void{
-    console.log(indieTag, actionTag, adventureTag)
+
+  public filtrateGamesByTag(indieTag:boolean, actionTag: boolean,adventureTag: boolean, games: Game[]):Game[]{
+    return this.collectCheckedTags(indieTag, actionTag,adventureTag ,games)
+  }
+
+  collectCheckedTags(indieTag:boolean, actionTag: boolean,adventureTag: boolean, games: Game[]): Game[]{
+
     if(indieTag && !this.checkedTags.some(e => e === 'indie')){
       this.checkedTags.push('indie')
     } else if(!indieTag){
@@ -36,8 +41,8 @@ export class FiltrationService {
     } else if( !adventureTag){
       this.removeUncheckedTag('adventure')
     }
-    console.log(this.checkedTags)
-    this.getFiltratedGames(games)
+
+    return this.getFiltratedGames(games)
   }
 
   removeUncheckedTag(tag: string){
@@ -47,24 +52,21 @@ export class FiltrationService {
     }
   }
 
-  getFiltratedGames(games: Game[]): void {
+  getFiltratedGames(games: Game[]): Game[] {
+
+    let filtratedByTagGames: Game[]=[]
 
     games.forEach(game => {
       for (let i = 0; i < game.tag.length; i++) {
         for (let j = 0; j < this.checkedTags.length; j++) {
           if ((game.tag[i] === this.checkedTags[j])) {
-            this.filtratedByTagGames.push(game)
+            filtratedByTagGames.push(game)
           }
         }
       }
     })
 
-    console.log(this.filtratedByTagGames.length)
-    this.deleteNotUniqueGame(this.filtratedByTagGames)
-    console.log(this.filtratedByTagGames)
+    return filtratedByTagGames
   }
 
-  deleteNotUniqueGame(filtratedGames: Game[]){
-    return [...new Map(filtratedGames.map(item => [item.id, item])).values()]
-  }
 }

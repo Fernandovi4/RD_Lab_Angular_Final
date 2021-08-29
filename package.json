@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "(cd server && npm start) & node server.js  ",
-    "build": "(cd server && npm start) & ng build",
+    "start": " node server.js",
+    "build": "ng build & (cd server && npm start) ",
     "watch": "ng build --watch --configuration development",
     "postinstall": "ng build --aot --prod"
   },

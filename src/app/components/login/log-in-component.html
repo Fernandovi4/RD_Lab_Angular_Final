@@ -7,19 +7,19 @@
           <hr/>
           <div class="container">
             <label class="form__label"><strong>Email</strong></label>
-            <input class="form__input" type="email" placeholder="Enter Email" name="email" required formControlName="userEmail" value="userEmail">
+            <input class="form__input" type="email" placeholder="Enter Email" name="email" required formControlName="userEmail" value="userEmail" autocomplete="cucurrent-email">
             <div class="alert alert-danger"
                  *ngIf="loginForm.controls['userEmail'].invalid && loginForm.controls['userEmail'].touched">
               Email required!!!
             </div>
             <label class="form__label"><strong>Password</strong></label>
-            <input class="form__input" type="password" placeholder="Enter Password" name="psw" required formControlName="userPassword" value="userPassword">
+            <input class="form__input" type="password" placeholder="Enter Password" name="psw" required formControlName="userPassword" value="userPassword" autocomplete="current-password">
             <div class="alert alert-danger"
                  *ngIf="loginForm.controls['userPassword'].invalid && loginForm.controls['userPassword'].touched">
               Password required!!!
             </div>
           </div>
-          <button class="login-btn" type="submit" [disabled]="loginForm.invalid" (click)="logIn(true)">Sing In</button>
+          <button class="login-btn" type="button" [disabled]="loginForm.invalid" (click)="logIn(true)">Sing In</button>
 <!--          <button class="register-btn" type="button"  [disabled]="isLoggedIn" (click)="registrateUser()">Registration</button>-->
         </div>
       </form>

@@ -3,7 +3,7 @@ import {Game} from '../../services/games.service'
 import {GamesService} from "../../services/games.service";
 import {HttpService} from "../../services/http.service";
 import {FiltrationService} from "../../services/filtration.service";
-// import {Observable} from "rxjs";
+
 
 @Component({
   selector: 'app-games',
@@ -19,8 +19,8 @@ export class GamesComponent implements OnInit, DoCheck {
   indieTag: boolean = false
   actionTag: boolean = false
   adventureTag: boolean = false
+  price: number = 0
 
-  // checkedTags: string[] = []
 
   constructor(
     private GamesService: GamesService,
@@ -35,11 +35,16 @@ export class GamesComponent implements OnInit, DoCheck {
   ngDoCheck():void {
   }
 
+  renderGames():void{
+    this.gamesToRender = this.games
+  }
+
   getGamesList():void {
     this.httpService.getGamesList()
       .subscribe(data => {
         // @ts-ignore
         this.games = data['games']
+        this.renderGames()
       })
   }
 
@@ -47,14 +52,16 @@ export class GamesComponent implements OnInit, DoCheck {
     this.games = this.GamesService.searchGameByName(this.searchedGameName, this.games)
   }
 
+  filtrateGamesByPrice():void{
+    this.gamesToRender = this.FiltrationService.filtrateGamesByPrice(
+      this.price, this.games)
+  }
+
   filtrateGamesByTag():void {
-    this.gamesToRender = this.FiltrationService.filtrateGamesByTag(
-      this.indieTag,
-      this.actionTag,
-      this.adventureTag,
-      this.games
-  )
-    console.log(this.games)
+    const filtratedByTagGames = this.FiltrationService.filtrateGamesByTag(
+      this.indieTag, this.actionTag, this.adventureTag, this.games)
+
+    this.gamesToRender = Array.from(new Set(filtratedByTagGames))
     this.ngDoCheck()
   }
 

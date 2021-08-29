@@ -20,26 +20,29 @@
           [price]="game.price"
           [description]="game.description"
           [game]="game"
-          *ngFor="let game of games, index as i"
+          *ngFor="let game of gamesToRender, index as i"
           (lookForAddindToLibrary)="updateGamePage()"
         >
         </app-game-card>
     </div>
     <div class="games__filters">
       <div class="wrapper">
+        <hr>
         <fieldset class="filter-price">
           <div class="price-field">
-            <input type="range" min="100" max="500" value="500" id="upper">
+            <input type="range" min="100" max="500" value="1000" id="upper" [(ngModel)]="price">
           </div>
           <div class="price-wrap">
             <span class="price-title">Filter by prise</span>
             <div class="price-container">
               <div class="price-wrap-2">
-                <input id="slider-input">
+                <input id="slider-input" [(ngModel)]="price">
               </div>
             </div>
           </div>
+          <button class="filter-price__button" (click) = " filtrateGamesByPrice()">Filtrate by price</button>
         </fieldset>
+        <hr>
         <fieldset class="filter-tag">
           <div>
             <input type="checkbox" id="indie" name="indie"
@@ -63,6 +66,7 @@
           <button class="filter-tag__button"
           (click) = " filtrateGamesByTag()">Filtrate by tags</button>
         </fieldset>
+        <hr>
       </div>
     </div>
   </div>
