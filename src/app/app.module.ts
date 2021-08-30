@@ -41,11 +41,8 @@ import {FriendsSearchComponent} from './components/frinds-search/frinds-search.c
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        // RouterModule.forRoot(appRoutes)
     ],
-  providers: [
-    // HttpClientModule
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,10 +19,7 @@ export class GameCardComponent implements OnInit {
   @Input() game: object| undefined;
   @Output() lookForAddindToLibrary = new EventEmitter<string>()
 
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   public saveToLibrary () {
 

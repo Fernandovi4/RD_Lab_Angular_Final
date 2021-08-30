@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', asyncAwaitWrapper( async (req, res) => {
-  res.sendFile('final_project/index.html', {'root': '../'});
+  res.sendFile('final_project/server/index.html', {'root': '../'});
 }));
 
 
@@ -71,6 +71,7 @@ const startServer = async () => {
       useUnifiedTopology: true,
     });
     app.listen(app.get('port'));
+    console.log(`server started on: ${app.get('port')} port`)
   } catch (err) {
     console.log(`Error on server startup: ${err.message}`);
   }

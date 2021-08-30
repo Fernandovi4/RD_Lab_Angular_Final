@@ -60,10 +60,11 @@
 
 .nav__link:hover{
   color: white;
+  /*letter-spacing: 0.01em;*/
   transition: .3s;
 }
 .nav__link:not(:hover){
-  transition: .3s;
+  transition: 1s;
 }
 
 .nav__link--clicked{
@@ -73,4 +74,8 @@
 .highlited{
   color: white;
   font-weight: bold;
+  font-size: 4vmin;
+  align-self: flex-start;
+  /*text-decoration: underline;*/
+  /*letter-spacing: 0.1em;*/
 }

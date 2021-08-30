@@ -6,4 +6,5 @@ app.use(express.static(__dirname + '/dist'));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
-app.listen(process.env.PORT || 9000);
+app.listen(process.env.PORT || 9090);
+console.log('server started on port 9090')

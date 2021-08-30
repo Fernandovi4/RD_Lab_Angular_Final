@@ -1,6 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-// import { Router } from '@angular/router';
 import {HttpService} from '../../services/http.service'
 
 @Component({
@@ -16,8 +15,8 @@ export class LogInComponent implements OnInit {
   submitted = false;
   loading = false;
   isLoggedIn: boolean = false
-  // returnUrl: string;
-
+  currentEmail: string = ''
+  currentPassword: string = ''
 
   constructor(
     private httpService: HttpService
@@ -34,25 +33,21 @@ export class LogInComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   submit(){
     this.submitted = true;
-    // this.isLoggedIn = true
 
     if (this.loginForm.invalid) {
       return;
     }
-
     this.loading = true;
-
-    // this.router.navigate([this.returnUrl])
   }
 
   public logIn(change: boolean): void {
     this.buttonClick.emit(change);
+    this.httpService.logIn(this.currentEmail, this.currentPassword)
+    console.log('logIn')
   }
 
   // public registrateUser(): void {

@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Game} from '../../services/games.service'
 import {GamesService} from "../../services/games.service";
 import {HttpService} from "../../services/http.service";
@@ -11,7 +11,7 @@ import {FiltrationService} from "../../services/filtration.service";
   styleUrls: ['./games.component.css']
 })
 
-export class GamesComponent implements OnInit, DoCheck {
+export class GamesComponent implements OnInit {
 
   games: Game[] = [];
   gamesToRender: Game[] =[]
@@ -30,9 +30,6 @@ export class GamesComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.getGamesList()
-  }
-
-  ngDoCheck():void {
   }
 
   renderGames():void{
@@ -62,7 +59,7 @@ export class GamesComponent implements OnInit, DoCheck {
       this.indieTag, this.actionTag, this.adventureTag, this.games)
 
     this.gamesToRender = Array.from(new Set(filtratedByTagGames))
-    this.ngDoCheck()
+
   }
 
   updateGamePage():void{

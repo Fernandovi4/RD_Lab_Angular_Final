@@ -16,6 +16,14 @@ export class HttpService {
   //   return this.http.post<T>(url, body )
   // }
 
+  public logIn(email:string, password: string){
+    const url = 'http://localhost:8080/api/auth/login'
+    return this.http.post(url, {
+      email: email,
+      password: password
+    })
+  }
+
   getGamesList(){
 
     return this.http.get<Game>('http://localhost:8080/api/games')
@@ -36,11 +44,7 @@ export class HttpService {
   removeUserFromFriendsById<Friend>(userId:string):Observable<Friend>{
 
     let url: string = `http://localhost:8080/api/friends/${userId}`
-    let httpParams = new HttpParams()
-      .set('id', userId)
-    return this.http.patch<Friend>(url,{
-      params: httpParams
-    })
+    return this.http.patch<Friend>(url,{})
   }
 
   addUserToFriendsById<Friend>(userId:string):Observable<Friend>{
