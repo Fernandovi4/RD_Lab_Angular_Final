@@ -6,7 +6,7 @@
     "start": "node server.js",
     "start-api": "node server/src/index.js",
     "start-all": "concurrently --kill-others \"npm run start-api\" \"npm run start\"",
-    "build": "concurrently \"ng build\" \"npm run start-api\"",
+    "build": "concurrently \"ng build\" \"cd server && npm start\"",
     "dev": "concurrently \"ng serve\" \"npm run start-api\" ",
     "watch": "ng build --watch --configuration development",
     "postinstall": "ng build --aot --prod"
