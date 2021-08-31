@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 // const {path} = require('path');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 mongoose.set('useCreateIndex', true);
@@ -27,7 +27,7 @@ const {asyncAwaitWrapper} = require('./utils/asyncAwaitWrapper');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-app.use(morgan('tiny'));
+// app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.static('assets'));
 
