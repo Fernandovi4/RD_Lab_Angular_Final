@@ -26,7 +26,7 @@ export class HttpService {
 
   getGamesList(){
 
-    return this.http.get<Game>('http://localhost:8080/api/games')
+    return this.http.get<Game>('api/games')
   }
 
   getFriendsList(){
