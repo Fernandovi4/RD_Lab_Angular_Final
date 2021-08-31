@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "install-api": "server npm install",
     "start": "node server.js",
     "start-api": "node server/src/index.js",
     "start-all": "concurrently --kill-others \"npm run start-api\" \"npm run start\"",
-    "build": " ng build & (cd server && npm install) & (cd server && node src/index.js)",
+    "build": "concurrently \"ng build\" \"npm install-api\" \"npm run start-api\"",
     "dev": "concurrently \"ng serve\" \"npm run start-api\" ",
     "watch": "ng build --watch --configuration development",
     "postinstall": "ng build --aot --prod"
